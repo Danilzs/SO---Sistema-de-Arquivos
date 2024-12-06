@@ -1,6 +1,10 @@
 # SO---Sistema-de-Arquivos
 Simulador de um sistema de arquivos usando Journaling
 
+#### Realizadores:
+Cássio Thiago
+Danilo Silva Pessoa De Araújo - 2218928
+
 ### Sobre:
 O código implementa um simulador de sistema de arquivos em Java, permitindo o usuário interagir por meio de comandos em uma interface shell. O sistema trabalha com dois tipos principais de entidades: arquivos e diretórios. Ele oferece funcionalidades como criação, exclusão, renomeação, cópia e listagem, e usa o log journaling para registrar as operações.
 
@@ -30,3 +34,49 @@ Tanto os dados quanto os metadados são registrados no journal antes de serem es
 Reorganiza os dados no journal como um log contínuo. É eficiente para gravações sequenciais e sistemas com alta taxa de escrita, mas pode ter dificuldades em sistemas de leitura intensiva.
 
 ### Implementação;
+O código é feito em java, criando comandos interativos com o usuário, que vai poder escolher a operação a ser realizada com cada um deles através do runshell.
+
+#### Função processCommand(String input)
+Objetivo: Processa os comandos digitados pelo usuário.
+Como funciona: O comando é extraído da entrada do usuário, o código usa um switch para identificar qual ação tomar com base no comando.
+Cada comando chama uma função específica, como createFile(), deleteFile(), copy(), etc., para executar a ação correspondente.
+
+#### Função logOperation(String operation)
+Objetivo: Registra a operação realizada no simulador no arquivo de log (journal.log).
+Como funciona: A operação é registrada tanto no console quanto no arquivo de log, o log é feito usando BufferedWriter para escrever no arquivo journal.log.
+
+#### Função navigateToDirectory(String[] parts, boolean createIfNotExist)
+Objetivo: Navega pelo sistema de arquivos até o diretório especificado pelo caminho dado.
+Como funciona: Divide o caminho em partes e navega por cada diretório, criando diretórios automaticamente se o parâmetro createIfNotExist for true. Retorna null se algum diretório não for encontrado.
+
+#### Classes File e Directory
+Objetivo: Representam um arquivo e um diretório no sistema de arquivos simulado.
+Como funciona: A classe File contém o nome e o conteúdo do arquivo.
+A classe Directory contém o nome, os arquivos e subdiretórios, permitindo operações como adicionar, excluir e listar arquivos e diretórios.
+
+#### Como o Sistema Funciona:
+O código simula um sistema de arquivos básico onde você pode criar, deletar, renomear, copiar e listar arquivos e diretórios.
+Cada operação é registrada em um arquivo de log (journal.log) para rastreamento. O sistema permite navegação hierárquica através de diretórios.
+
+#### Comandos:
+create file <path> [content]: Cria um arquivo com o conteúdo fornecido.
+create dir <path>: Cria um diretório no caminho especificado.
+delete file <path>: Exclui um arquivo.
+delete dir <path>: Exclui um diretório.
+rename <file|dir> <old path> <new path>: Renomeia um arquivo ou diretório.
+copy <source> <destination>: Copia um arquivo de origem para o destino.
+list <path>: Lista o conteúdo de um diretório ou exibe o arquivo no caminho especificado.
+exit: Sai do simulador.
+
+#### Forma recomendada de usar:
+
+create dir /teste
+create dir /teste2
+create file /teste/olamundo.txt Ola mundo!
+create file /teste2/welcome.txt Bem vindo!
+view /teste
+view /teste2
+list dir
+rename /teste/olamundo.txt /teste/testando.txt
+delete file /teste2/welcome.txt
+delete dir /teste
